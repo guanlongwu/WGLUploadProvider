@@ -1,0 +1,16 @@
+PODS:
+  - WGLFileManager (0.0.1)
+
+DEPENDENCIES:
+  - WGLFileManager (~> 0.0.1)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - WGLFileManager
+
+SPEC CHECKSUMS:
+  WGLFileManager: 431bf50d40121ff35b6e87a0d5a1f3f4d04773a4
+
+PODFILE CHECKSUM: f58571403708f8875e170acaf0bce1d11a27e0f3
+
+COCOAPODS: 1.6.1

@@ -1,0 +1,498 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		04FBCD3BC11478586C76ABAE6DE6CD6E /* WGLFileManager.h in Headers */ = {isa = PBXBuildFile; fileRef = E5517651C883C6B6FE2D26EEA8474BE8 /* WGLFileManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		27EC447C0E37C23311F9B2C65348C238 /* WGLFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F30BD50A17F772AB27E1DDA88BB277C /* WGLFileManager.m */; };
+		941A35775531BDDC55A76B0E5723D47A /* Pods-WGLUploadProvider-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F5F19DDCEC2CA7B30F43EB2FCFC77C /* Pods-WGLUploadProvider-dummy.m */; };
+		E2B83673AED7C2DE0C591007360FFBFE /* WGLFileManager-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A25B09A3DCB99B0FB6D120AA7CF14B /* WGLFileManager-dummy.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9A9AD6B6E402F413A845B2107E9664F3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 07AB74F2F6E832FB0FDD4B07A3D46EBE;
+			remoteInfo = WGLFileManager;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0AB6B60D68F2C4BB18F10B51EFEFFB6E /* libPods-WGLUploadProvider.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-WGLUploadProvider.a"; path = "libPods-WGLUploadProvider.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B034C8114CFBAE4EB3F7D37E0C1CF42 /* Pods-WGLUploadProvider.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-WGLUploadProvider.release.xcconfig"; sourceTree = "<group>"; };
+		31F4CF48EF783914CE5D1940AC8C1F8D /* libWGLFileManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libWGLFileManager.a; path = libWGLFileManager.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		35A25B09A3DCB99B0FB6D120AA7CF14B /* WGLFileManager-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "WGLFileManager-dummy.m"; sourceTree = "<group>"; };
+		6ACEE41C20462A915D6E271B9CDB290C /* WGLFileManager.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = WGLFileManager.xcconfig; sourceTree = "<group>"; };
+		7F30BD50A17F772AB27E1DDA88BB277C /* WGLFileManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = WGLFileManager.m; path = WGLFileManager/WGLFileManager.m; sourceTree = "<group>"; };
+		83F5F19DDCEC2CA7B30F43EB2FCFC77C /* Pods-WGLUploadProvider-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-WGLUploadProvider-dummy.m"; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		ABAFC9D4E8DD4A7ABADC8B6D996A8A2E /* WGLFileManager-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "WGLFileManager-prefix.pch"; sourceTree = "<group>"; };
+		C3F594E006A7463DE9E72BAB8CBF65BE /* Pods-WGLUploadProvider-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-WGLUploadProvider-acknowledgements.plist"; sourceTree = "<group>"; };
+		C97E3C1755F14D3441A7C3894068FD58 /* Pods-WGLUploadProvider-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-WGLUploadProvider-acknowledgements.markdown"; sourceTree = "<group>"; };
+		D6DDEBAF95FAD6533D78544ED4D56A30 /* Pods-WGLUploadProvider.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-WGLUploadProvider.debug.xcconfig"; sourceTree = "<group>"; };
+		E5517651C883C6B6FE2D26EEA8474BE8 /* WGLFileManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WGLFileManager.h; path = WGLFileManager/WGLFileManager.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		95BDBEDF6F9D021779F6B49055A272BE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B207AB3CBAB4AF0CE599E4A435C1B13E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1031EBBD0F7BE20E637ADA2A0692FE5D /* Pods-WGLUploadProvider */ = {
+			isa = PBXGroup;
+			children = (
+				C97E3C1755F14D3441A7C3894068FD58 /* Pods-WGLUploadProvider-acknowledgements.markdown */,
+				C3F594E006A7463DE9E72BAB8CBF65BE /* Pods-WGLUploadProvider-acknowledgements.plist */,
+				83F5F19DDCEC2CA7B30F43EB2FCFC77C /* Pods-WGLUploadProvider-dummy.m */,
+				D6DDEBAF95FAD6533D78544ED4D56A30 /* Pods-WGLUploadProvider.debug.xcconfig */,
+				0B034C8114CFBAE4EB3F7D37E0C1CF42 /* Pods-WGLUploadProvider.release.xcconfig */,
+			);
+			name = "Pods-WGLUploadProvider";
+			path = "Target Support Files/Pods-WGLUploadProvider";
+			sourceTree = "<group>";
+		};
+		2FAB2EF292B3BA46CD7F4C983224B6FB /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				1031EBBD0F7BE20E637ADA2A0692FE5D /* Pods-WGLUploadProvider */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		440564DBF1845273617D5AAD42D686AA /* WGLFileManager */ = {
+			isa = PBXGroup;
+			children = (
+				E5517651C883C6B6FE2D26EEA8474BE8 /* WGLFileManager.h */,
+				7F30BD50A17F772AB27E1DDA88BB277C /* WGLFileManager.m */,
+				A299DC6327D42985DDF8FF4010837E40 /* Support Files */,
+			);
+			name = WGLFileManager;
+			path = WGLFileManager;
+			sourceTree = "<group>";
+		};
+		841530E54F51704180075FA632C2CCED /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				440564DBF1845273617D5AAD42D686AA /* WGLFileManager */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		A299DC6327D42985DDF8FF4010837E40 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				6ACEE41C20462A915D6E271B9CDB290C /* WGLFileManager.xcconfig */,
+				35A25B09A3DCB99B0FB6D120AA7CF14B /* WGLFileManager-dummy.m */,
+				ABAFC9D4E8DD4A7ABADC8B6D996A8A2E /* WGLFileManager-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/WGLFileManager";
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				D89477F20FB1DE18A04690586D7808C4 /* Frameworks */,
+				841530E54F51704180075FA632C2CCED /* Pods */,
+				DA0F20D67A921E034BAC868417F12832 /* Products */,
+				2FAB2EF292B3BA46CD7F4C983224B6FB /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		D89477F20FB1DE18A04690586D7808C4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DA0F20D67A921E034BAC868417F12832 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0AB6B60D68F2C4BB18F10B51EFEFFB6E /* libPods-WGLUploadProvider.a */,
+				31F4CF48EF783914CE5D1940AC8C1F8D /* libWGLFileManager.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		556ACD25BB50C1E3C5A011EF10990847 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC984FFBC474100B98DCCD8A31B9C503 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04FBCD3BC11478586C76ABAE6DE6CD6E /* WGLFileManager.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		07AB74F2F6E832FB0FDD4B07A3D46EBE /* WGLFileManager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6387280FE33D076754D9BBEDC090D528 /* Build configuration list for PBXNativeTarget "WGLFileManager" */;
+			buildPhases = (
+				DC984FFBC474100B98DCCD8A31B9C503 /* Headers */,
+				EE0611523C4D80980EA6EBA801450A93 /* Sources */,
+				B207AB3CBAB4AF0CE599E4A435C1B13E /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WGLFileManager;
+			productName = WGLFileManager;
+			productReference = 31F4CF48EF783914CE5D1940AC8C1F8D /* libWGLFileManager.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		943678EA7A4C805593011E1CE30BBA39 /* Pods-WGLUploadProvider */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B9579FA23235EB0B425B64EA9525FA68 /* Build configuration list for PBXNativeTarget "Pods-WGLUploadProvider" */;
+			buildPhases = (
+				556ACD25BB50C1E3C5A011EF10990847 /* Headers */,
+				8FB80E5B6B66FD1FFF6C983B606A8BBC /* Sources */,
+				95BDBEDF6F9D021779F6B49055A272BE /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6E08C63EF322489FAB8AC1C6395C9374 /* PBXTargetDependency */,
+			);
+			name = "Pods-WGLUploadProvider";
+			productName = "Pods-WGLUploadProvider";
+			productReference = 0AB6B60D68F2C4BB18F10B51EFEFFB6E /* libPods-WGLUploadProvider.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
+			};
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			productRefGroup = DA0F20D67A921E034BAC868417F12832 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				943678EA7A4C805593011E1CE30BBA39 /* Pods-WGLUploadProvider */,
+				07AB74F2F6E832FB0FDD4B07A3D46EBE /* WGLFileManager */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8FB80E5B6B66FD1FFF6C983B606A8BBC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				941A35775531BDDC55A76B0E5723D47A /* Pods-WGLUploadProvider-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE0611523C4D80980EA6EBA801450A93 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E2B83673AED7C2DE0C591007360FFBFE /* WGLFileManager-dummy.m in Sources */,
+				27EC447C0E37C23311F9B2C65348C238 /* WGLFileManager.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6E08C63EF322489FAB8AC1C6395C9374 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = WGLFileManager;
+			target = 07AB74F2F6E832FB0FDD4B07A3D46EBE /* WGLFileManager */;
+			targetProxy = 9A9AD6B6E402F413A845B2107E9664F3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		05DF210AC65EBB0E593AAF976B2C2177 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.2;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		2DADB5DDE66B19D0A5AF54869EB57133 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6ACEE41C20462A915D6E271B9CDB290C /* WGLFileManager.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/WGLFileManager/WGLFileManager-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = WGLFileManager;
+				PRODUCT_NAME = WGLFileManager;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3BFA26D3DC538C92F280D40EB8D363EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0B034C8114CFBAE4EB3F7D37E0C1CF42 /* Pods-WGLUploadProvider.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		421ECB1396280A8D83853C3DDBED1700 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		5F6E25EFBA357E8D70E6E9F3981C6D0E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D6DDEBAF95FAD6533D78544ED4D56A30 /* Pods-WGLUploadProvider.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		62F9517767AB12683DAC8EC799A39C59 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6ACEE41C20462A915D6E271B9CDB290C /* WGLFileManager.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/WGLFileManager/WGLFileManager-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = WGLFileManager;
+				PRODUCT_NAME = WGLFileManager;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				421ECB1396280A8D83853C3DDBED1700 /* Debug */,
+				05DF210AC65EBB0E593AAF976B2C2177 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6387280FE33D076754D9BBEDC090D528 /* Build configuration list for PBXNativeTarget "WGLFileManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2DADB5DDE66B19D0A5AF54869EB57133 /* Debug */,
+				62F9517767AB12683DAC8EC799A39C59 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B9579FA23235EB0B425B64EA9525FA68 /* Build configuration list for PBXNativeTarget "Pods-WGLUploadProvider" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5F6E25EFBA357E8D70E6E9F3981C6D0E /* Debug */,
+				3BFA26D3DC538C92F280D40EB8D363EB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+}

@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		091395FE226F3ECE00F52D06 /* WGLUploadProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 091395FD226F3ECE00F52D06 /* WGLUploadProvider.m */; };
 		091395FF226F3ECE00F52D06 /* WGLUploadProvider.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 091395FC226F3ECE00F52D06 /* WGLUploadProvider.h */; };
+		091396092270140900F52D06 /* WGLUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 091396082270140900F52D06 /* WGLUploader.m */; };
+		0913960D2270160B00F52D06 /* WGLFileStreamOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0913960C2270160B00F52D06 /* WGLFileStreamOperation.m */; };
+		091396102270166200F52D06 /* WGLStreamFragment.m in Sources */ = {isa = PBXBuildFile; fileRef = 0913960F2270166200F52D06 /* WGLStreamFragment.m */; };
+		0913961A22706BDB00F52D06 /* WGLUploadUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0913961822706BDB00F52D06 /* WGLUploadUtils.m */; };
+		0913961E22706EEA00F52D06 /* WGLUploadTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 0913961D22706EEA00F52D06 /* WGLUploadTask.m */; };
+		355F3673B41782482B113236 /* libPods-WGLUploadProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2AE0922889E6658141DB9F /* libPods-WGLUploadProvider.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +34,20 @@
 		091395F9226F3ECE00F52D06 /* libWGLUploadProvider.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libWGLUploadProvider.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		091395FC226F3ECE00F52D06 /* WGLUploadProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WGLUploadProvider.h; sourceTree = "<group>"; };
 		091395FD226F3ECE00F52D06 /* WGLUploadProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WGLUploadProvider.m; sourceTree = "<group>"; };
+		091396072270140900F52D06 /* WGLUploader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WGLUploader.h; sourceTree = "<group>"; };
+		091396082270140900F52D06 /* WGLUploader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WGLUploader.m; sourceTree = "<group>"; };
+		0913960B2270160B00F52D06 /* WGLFileStreamOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WGLFileStreamOperation.h; sourceTree = "<group>"; };
+		0913960C2270160B00F52D06 /* WGLFileStreamOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WGLFileStreamOperation.m; sourceTree = "<group>"; };
+		0913960E2270166200F52D06 /* WGLStreamFragment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WGLStreamFragment.h; sourceTree = "<group>"; };
+		0913960F2270166200F52D06 /* WGLStreamFragment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WGLStreamFragment.m; sourceTree = "<group>"; };
+		0913961722706BDB00F52D06 /* WGLUploadUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGLUploadUtils.h; sourceTree = "<group>"; };
+		0913961822706BDB00F52D06 /* WGLUploadUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGLUploadUtils.m; sourceTree = "<group>"; };
+		0913961922706BDB00F52D06 /* WGLUploadHead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGLUploadHead.h; sourceTree = "<group>"; };
+		0913961C22706EEA00F52D06 /* WGLUploadTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WGLUploadTask.h; sourceTree = "<group>"; };
+		0913961D22706EEA00F52D06 /* WGLUploadTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WGLUploadTask.m; sourceTree = "<group>"; };
+		1FD71F99D1F20066B1E60F8F /* Pods-WGLUploadProvider.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WGLUploadProvider.debug.xcconfig"; path = "Target Support Files/Pods-WGLUploadProvider/Pods-WGLUploadProvider.debug.xcconfig"; sourceTree = "<group>"; };
+		2C2AE0922889E6658141DB9F /* libPods-WGLUploadProvider.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WGLUploadProvider.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8908F34051A321712F09F07B /* Pods-WGLUploadProvider.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WGLUploadProvider.release.xcconfig"; path = "Target Support Files/Pods-WGLUploadProvider/Pods-WGLUploadProvider.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				355F3673B41782482B113236 /* libPods-WGLUploadProvider.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +67,8 @@
 			children = (
 				091395FB226F3ECE00F52D06 /* WGLUploadProvider */,
 				091395FA226F3ECE00F52D06 /* Products */,
+				8B27E434EE282EE3C762D9BC /* Pods */,
+				80C7779EE5D6017D11205E3E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,8 +85,68 @@
 			children = (
 				091395FC226F3ECE00F52D06 /* WGLUploadProvider.h */,
 				091395FD226F3ECE00F52D06 /* WGLUploadProvider.m */,
+				0913961B22706ED800F52D06 /* Task */,
+				0913960A227015F600F52D06 /* FileStreamOperation */,
+				09139606227013C900F52D06 /* Uploader */,
+				0913961622706BDB00F52D06 /* Utils */,
 			);
 			path = WGLUploadProvider;
+			sourceTree = "<group>";
+		};
+		09139606227013C900F52D06 /* Uploader */ = {
+			isa = PBXGroup;
+			children = (
+				091396072270140900F52D06 /* WGLUploader.h */,
+				091396082270140900F52D06 /* WGLUploader.m */,
+			);
+			path = Uploader;
+			sourceTree = "<group>";
+		};
+		0913960A227015F600F52D06 /* FileStreamOperation */ = {
+			isa = PBXGroup;
+			children = (
+				0913960B2270160B00F52D06 /* WGLFileStreamOperation.h */,
+				0913960C2270160B00F52D06 /* WGLFileStreamOperation.m */,
+				0913960E2270166200F52D06 /* WGLStreamFragment.h */,
+				0913960F2270166200F52D06 /* WGLStreamFragment.m */,
+			);
+			path = FileStreamOperation;
+			sourceTree = "<group>";
+		};
+		0913961622706BDB00F52D06 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				0913961722706BDB00F52D06 /* WGLUploadUtils.h */,
+				0913961822706BDB00F52D06 /* WGLUploadUtils.m */,
+				0913961922706BDB00F52D06 /* WGLUploadHead.h */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		0913961B22706ED800F52D06 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				0913961C22706EEA00F52D06 /* WGLUploadTask.h */,
+				0913961D22706EEA00F52D06 /* WGLUploadTask.m */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
+		80C7779EE5D6017D11205E3E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2C2AE0922889E6658141DB9F /* libPods-WGLUploadProvider.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8B27E434EE282EE3C762D9BC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1FD71F99D1F20066B1E60F8F /* Pods-WGLUploadProvider.debug.xcconfig */,
+				8908F34051A321712F09F07B /* Pods-WGLUploadProvider.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -73,6 +156,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 09139602226F3ECE00F52D06 /* Build configuration list for PBXNativeTarget "WGLUploadProvider" */;
 			buildPhases = (
+				E8F60A3244B904208D21D21C /* [CP] Check Pods Manifest.lock */,
 				091395F5226F3ECE00F52D06 /* Sources */,
 				091395F6226F3ECE00F52D06 /* Frameworks */,
 				091395F7226F3ECE00F52D06 /* CopyFiles */,
@@ -117,12 +201,42 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		E8F60A3244B904208D21D21C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WGLUploadProvider-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		091395F5226F3ECE00F52D06 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0913961A22706BDB00F52D06 /* WGLUploadUtils.m in Sources */,
+				091396102270166200F52D06 /* WGLStreamFragment.m in Sources */,
+				091396092270140900F52D06 /* WGLUploader.m in Sources */,
 				091395FE226F3ECE00F52D06 /* WGLUploadProvider.m in Sources */,
+				0913961E22706EEA00F52D06 /* WGLUploadTask.m in Sources */,
+				0913960D2270160B00F52D06 /* WGLFileStreamOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,6 +357,7 @@
 		};
 		09139603226F3ECE00F52D06 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1FD71F99D1F20066B1E60F8F /* Pods-WGLUploadProvider.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				OTHER_LDFLAGS = "-ObjC";
@@ -254,6 +369,7 @@
 		};
 		09139604226F3ECE00F52D06 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8908F34051A321712F09F07B /* Pods-WGLUploadProvider.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				OTHER_LDFLAGS = "-ObjC";
