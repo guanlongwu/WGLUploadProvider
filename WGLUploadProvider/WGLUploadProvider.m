@@ -23,6 +23,8 @@
 
 @implementation WGLUploadProvider
 
+#pragma mark - init
+
 + (instancetype)sharedProvider {
     static WGLUploadProvider *instance = nil;
     static dispatch_once_t onceToken;
@@ -61,46 +63,82 @@
 
 #pragma mark - main interface
 
+//上传入口
+- (void)uploadWithFilePath:(NSString *)filePath {
+    
+}
 
+//添加任务
+- (void)addTasks:(WGLUploadTask *)task {
+    if (!task) {
+        return;
+    }
+    Lock();
+    if (self.executeOrder == WGLUploadExeOrderFIFO) {
+        [self.tasks addObject:task];
+    }
+    else if (self.executeOrder == WGLUploadExeOrderLIFO) {
+        [self.tasks insertObject:task atIndex:0];
+    }
+    else {
+        [self.tasks addObject:task];
+    }
+    Unlock();
+}
 
 #pragma mark - WGLUploaderDelegate
 
+//获取上传URLRequest
 - (NSURLRequest *)uploaderGetUploadURLRequest:(WGLUploader *)uploader {
     NSURLRequest *req = nil;
-    if ([self.dataSource respondsToSelector:@selector(uploaderGetUploadURLRequest:)]) {
-        req = [self.dataSource uploaderGetUploadURLRequest:self];
+    if ([self.dataSource respondsToSelector:@selector(uploadProviderGetUploadURLRequest:)]) {
+        req = [self.dataSource uploadProviderGetUploadURLRequest:self];
     }
     return req;
 }
 
-- (void)uploaderGetParamsBeforeUpload:(WGLUploader *)uploader fileOperation:(WGLFileStreamOperation *)fileOperation completion:(WGLGetFileParamsBeforeUploadCompletion)completion {
-    
+//获取文件上传之前的参数
+- (void)uploaderGetParamsBeforeUpload:(WGLUploader *)uploader fileInfo:(WGLUploadFileInfo *)fileInfo completion:(WGLGetFileParamsBeforeUploadCompletion)completion {
+    if ([self.dataSource respondsToSelector:@selector(uploadProviderGetParamsBeforeUpload:fileInfo:completion:)]) {
+        [self.dataSource uploadProviderGetParamsBeforeUpload:self fileInfo:fileInfo completion:completion];
+    }
 }
 
-- (NSDictionary *)uploaderGetUploadParams:(WGLUploader *)uploader streamFragments:(NSArray <WGLStreamFragment*> *)streamFragments segmentIndex:(NSInteger)segmentIndex params:(NSDictionary *)params {
-    NSDictionary *dic = nil;
-    
-    return dic;
+//获取每个分片文件上传的参数
+- (NSDictionary *)uploaderGetChunkUploadParams:(WGLUploader *)uploader params:(NSDictionary *)params chunkIndex:(NSInteger)chunkIndex {
+    NSDictionary *uploadParams = nil;
+    if ([self.dataSource respondsToSelector:@selector(uploadProviderGetChunkUploadParams:params:chunkIndex:)]) {
+        uploadParams = [self.dataSource uploadProviderGetChunkUploadParams:self params:params chunkIndex:chunkIndex];
+    }
+    return uploadParams;
 }
 
 //上传中
-- (void)uploaderUploading:(WGLUploader *)uploader fileOperation:(WGLFileStreamOperation *)fileOperation {
-    
+- (void)uploaderUploading:(WGLUploader *)uploader fileInfo:(WGLUploadFileInfo *)fileInfo {
+    if ([self.delegate respondsToSelector:@selector(uploadProviderUploading:fileInfo:)]) {
+        [self.delegate uploadProviderUploading:self fileInfo:fileInfo];
+    }
 }
 
 //上传成功
-- (void)uploaderDidFinish:(WGLUploader *)uploader fileOperation:(WGLFileStreamOperation *)fileOperation {
-    
+- (void)uploaderDidFinish:(WGLUploader *)uploader fileInfo:(WGLUploadFileInfo *)fileInfo {
+    if ([self.delegate respondsToSelector:@selector(uploadProviderDidFinish:fileInfo:)]) {
+        [self.delegate uploadProviderDidFinish:self fileInfo:fileInfo];
+    }
 }
 
 //上传失败
-- (void)uploaderDidFailure:(WGLUploader *)uploader fileOperation:(WGLFileStreamOperation *)fileOperation error:(NSError *)error {
-    
+- (void)uploaderDidFailure:(WGLUploader *)uploader fileInfo:(WGLUploadFileInfo *)fileInfo error:(NSError *)error {
+    if ([self.delegate respondsToSelector:@selector(uploadProviderDidFailure:fileInfo:error:)]) {
+        [self.delegate uploadProviderDidFailure:self fileInfo:fileInfo error:error];
+    }
 }
 
 //上传取消
-- (void)uploaderDidCancel:(WGLUploader *)uploader fileOperation:(WGLFileStreamOperation *)fileOperation {
-    
+- (void)uploaderDidCancel:(WGLUploader *)uploader fileInfo:(WGLUploadFileInfo *)fileInfo {
+    if ([self.delegate respondsToSelector:@selector(uploadProviderDidCancel:fileInfo:)]) {
+        [self.delegate uploadProviderDidCancel:self fileInfo:fileInfo];
+    }
 }
 
 

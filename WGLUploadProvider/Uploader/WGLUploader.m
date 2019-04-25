@@ -65,7 +65,7 @@
     else {
         //上传之前先获取参数
         
-        WGLGetFileParamsBeforeUploadCompletion completion = ^(WGLUploader *uploader, NSDictionary *params) {
+        WGLUploaderGetFileParamsBeforeUploadCompletion completion = ^(WGLUploader *uploader, NSDictionary *params) {
             //获取到参数
             uploader.fileUploadParams = [NSMutableDictionary dictionaryWithDictionary:params];
             //执行上传
@@ -73,8 +73,9 @@
         };
         
         //获取参数的操作由代理实现
-        if ([self.dataSource respondsToSelector:@selector(uploaderGetParamsBeforeUpload:fileOperation:completion:)]) {
-            [self.dataSource uploaderGetParamsBeforeUpload:self fileOperation:self.fileOperation completion:completion];
+        WGLUploadFileInfo *fileInfo = [self getUploadFileInfo:self.fileOperation];
+        if ([self.dataSource respondsToSelector:@selector(uploaderGetParamsBeforeUpload:fileInfo:completion:)]) {
+            [self.dataSource uploaderGetParamsBeforeUpload:self fileInfo:fileInfo completion:completion];
         }
         else {
             NSLog(@"尚未获取上传参数，不能执行文件的上传！");
@@ -93,8 +94,9 @@
         [self archerFileUploadInfo];
         
         //回调：上传完成
-        if ([self.delegate respondsToSelector:@selector(uploaderDidFinish:fileOperation:)]) {
-            [self.delegate uploaderDidFinish:self fileOperation:self.fileOperation];
+        WGLUploadFileInfo *fileInfo = [self getUploadFileInfo:self.fileOperation];
+        if ([self.delegate respondsToSelector:@selector(uploaderDidFinish:fileInfo:)]) {
+            [self.delegate uploaderDidFinish:self fileInfo:fileInfo];
         }
         
         [self deallocSession];
@@ -111,7 +113,7 @@
     }
     @autoreleasepool {
         //获取上传参数
-        NSDictionary *uploadParams = [self getFileUploadParams:index];
+        NSDictionary *uploadParams = [self getChunkFileUploadParams:index];
         
         //获取上传文件data
         NSData *uploadData = [self.fileOperation readDataOfFragment:streamFragment];
@@ -131,8 +133,9 @@
                 [strongSelf archerFileUploadInfo];
                 
                 //回调：上传中
-                if ([self.delegate respondsToSelector:@selector(uploaderUploading:fileOperation:)]) {
-                    [self.delegate uploaderUploading:self fileOperation:self.fileOperation];
+                WGLUploadFileInfo *fileInfo = [self getUploadFileInfo:self.fileOperation];
+                if ([self.delegate respondsToSelector:@selector(uploaderUploading:fileInfo:)]) {
+                    [self.delegate uploaderUploading:self fileInfo:fileInfo];
                 }
                 
                 //依次上传下一个分片
@@ -152,8 +155,9 @@
                     strongSelf.fileOperation.uploadStatus = WGLUploadStatusFailed;
                     
                     //回调：上传失败
-                    if ([self.delegate respondsToSelector:@selector(uploaderDidFailure:fileOperation:error:)]) {
-                        [self.delegate uploaderDidFailure:self fileOperation:self.fileOperation error:error];
+                    WGLUploadFileInfo *fileInfo = [self getUploadFileInfo:self.fileOperation];
+                    if ([self.delegate respondsToSelector:@selector(uploaderDidFailure:fileInfo:error:)]) {
+                        [self.delegate uploaderDidFailure:self fileInfo:fileInfo error:error];
                     }
                     
                     //停止上传
@@ -189,8 +193,9 @@
     [self archerFileUploadInfo];
     
     //回调：取消上传
-    if ([self.delegate respondsToSelector:@selector(uploaderDidCancel:fileOperation:)]) {
-        [self.delegate uploaderDidCancel:self fileOperation:self.fileOperation];
+    WGLUploadFileInfo *fileInfo = [self getUploadFileInfo:self.fileOperation];
+    if ([self.delegate respondsToSelector:@selector(uploaderDidCancel:fileInfo:)]) {
+        [self.delegate uploaderDidCancel:self fileInfo:fileInfo];
     }
     
     //执行暂停取消
@@ -202,6 +207,7 @@
 }
 
 - (void)deallocSession {
+    self.fileUploadParams = nil;
     self.uploadRepeatNum = 0;
     self.currentUploadTask = nil;
     [[NSURLSession sharedSession] finishTasksAndInvalidate];
@@ -224,11 +230,11 @@
     return req;
 }
 
-//获取上传params
-- (NSDictionary *)getFileUploadParams:(NSInteger)index {
+//获取分片上传的params
+- (NSDictionary *)getChunkFileUploadParams:(NSInteger)index {
     NSDictionary *tmps = nil;
-    if ([self.dataSource respondsToSelector:@selector(uploaderGetUploadParams:streamFragments:segmentIndex:params:)]) {
-        tmps = [self.dataSource uploaderGetUploadParams:self streamFragments:self.fileOperation.streamFragments segmentIndex:index params:self.fileUploadParams];
+    if ([self.dataSource respondsToSelector:@selector(uploaderGetChunkUploadParams:params:chunkIndex:)]) {
+        tmps = [self.dataSource uploaderGetChunkUploadParams:self params:self.fileUploadParams chunkIndex:index];
     }
     NSDictionary *uploadParams = tmps ?: self.fileUploadParams;
     return uploadParams;
@@ -255,6 +261,22 @@
     [totlData appendData:[EndBody dataUsingEncoding:NSUTF8StringEncoding]];
     
     return totlData;
+}
+
+//获取待上传文件的信息
+- (WGLUploadFileInfo *)getUploadFileInfo:(WGLFileStreamOperation *)fileOperation {
+    WGLUploadFileInfo *info = [[WGLUploadFileInfo alloc] init];
+    if (fileOperation) {
+        info.filePath = fileOperation.filePath;
+        info.fileName = fileOperation.fileName;
+        info.fileSize = fileOperation.fileSize;
+        info.fileMD5String = fileOperation.fileMD5String;
+        info.bizId = fileOperation.bizId;
+        info.fragmentCount = fileOperation.streamFragments.count;
+        info.uploadedSize = fileOperation.uploadedSize;
+        info.uploadProgress = fileOperation.uploadProgress;
+    }
+    return info;
 }
 
 @end

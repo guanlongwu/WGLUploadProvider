@@ -11,6 +11,20 @@
 
 #define WGLStreamFragmentMaxSize (1024 * 512) // 每个分片最大512KB
 
+@interface WGLFileStreamOperation ()
+@property (nonatomic, assign) BOOL isReadOperation; //YES：读文件；NO：写文件
+@property (nonatomic, strong) NSFileHandle *readFileHandle; //读文件句柄
+@property (nonatomic, strong) NSFileHandle *writeFileHandle; //写文件句柄
+
+@property (nonatomic, copy) NSString *fileName; //文件名
+@property (nonatomic, assign) NSUInteger fileSize; //文件大小
+@property (nonatomic, copy) NSString *fileMD5String; //文件md5编码名称
+@property (nonatomic, copy) NSString *bizId;
+@property (nonatomic, assign) double uploadProgress;  //上传进度
+@property (nonatomic, assign) NSInteger uploadedSize; //已上传文件大小
+@property (nonatomic, strong) NSArray <WGLStreamFragment *> *streamFragments; //文件分片数组
+@end
+
 @implementation WGLFileStreamOperation
 
 #pragma mark - init
