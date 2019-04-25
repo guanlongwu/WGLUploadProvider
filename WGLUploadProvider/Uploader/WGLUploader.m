@@ -60,6 +60,12 @@
     if (self.fileUploadParams) {
         //开始上传
         
+        //回调：上传开始
+        WGLUploadFileInfo *fileInfo = [self getUploadFileInfo:self.fileOperation];
+        if ([self.delegate respondsToSelector:@selector(uploaderDidStart:fileInfo:)]) {
+            [self.delegate uploaderDidStart:self fileInfo:fileInfo];
+        }
+        
         [self uploadFileWithIndex:0 streamFragments:self.fileOperation.streamFragments];
     }
     else {
@@ -275,6 +281,7 @@
         info.fragmentCount = fileOperation.streamFragments.count;
         info.uploadedSize = fileOperation.uploadedSize;
         info.uploadProgress = fileOperation.uploadProgress;
+        info.uploadStatus = fileOperation.uploadStatus;
     }
     return info;
 }

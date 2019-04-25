@@ -7,10 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WGLUploadHead.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WGLUploadTask : NSObject
+
+@property (nonatomic, copy) NSString *filePath; //文件路径
+@property (nonatomic, assign) WGLUploadStatus uploadStatus;//文件上传状态
 
 @end
 

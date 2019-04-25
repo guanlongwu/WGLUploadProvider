@@ -66,6 +66,9 @@ typedef void(^WGLUploaderGetFileParamsBeforeUploadCompletion)(WGLUploader *uploa
 
 @protocol WGLUploaderDelegate <NSObject>
 
+//上传开始
+- (void)uploaderDidStart:(WGLUploader *)uploader fileInfo:(WGLUploadFileInfo *)fileInfo;
+
 //上传中
 - (void)uploaderUploading:(WGLUploader *)uploader fileInfo:(WGLUploadFileInfo *)fileInfo;
 

@@ -42,6 +42,20 @@ typedef void(^WGLGetFileParamsBeforeUploadCompletion)(WGLUploadProvider *ulProvi
  */
 @property (nonatomic, assign) WGLUploadExeOrder executeOrder;
 
+/**
+ 开始上传
+ 
+ @param filePath 上传文件的路径
+ */
+- (void)uploadWithFilePath:(NSString *)filePath;
+
+- (void)uploadWithFilePath:(NSString *)filePath start:(WGLUploadProviderStartBlock)start progress:(WGLUploadProviderProgressBlock)progress success:(WGLUploadProviderSuccessBlock)success failure:(WGLUploadProviderFailBlock)failure cancel:(WGLUploadProviderCancelBlock)cancel;
+
+//取消所有的上传
+- (void)cancelAllUploads;
+
+//取消指定上传
+- (void)cancelUploadURL:(NSString *)filePath;
 
 @end
 
@@ -79,6 +93,9 @@ typedef void(^WGLGetFileParamsBeforeUploadCompletion)(WGLUploadProvider *ulProvi
 
 
 @protocol WGLUploadProviderDelegate <NSObject>
+
+//下载开始
+- (void)uploadProviderDidStart:(WGLUploadProvider *)ulProvider fileInfo:(WGLUploadFileInfo *)fileInfo;
 
 //上传中
 - (void)uploadProviderUploading:(WGLUploadProvider *)ulProvider fileInfo:(WGLUploadFileInfo *)fileInfo;

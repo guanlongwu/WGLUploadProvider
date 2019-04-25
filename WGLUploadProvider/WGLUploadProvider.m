@@ -61,15 +61,65 @@
     }
 }
 
++ (dispatch_queue_t)uploadQueue {
+    static dispatch_queue_t dlQueue;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        dlQueue = dispatch_queue_create("com.wugl.mobile.uploadProvider.uploadQueue", DISPATCH_QUEUE_SERIAL);
+    });
+    return dlQueue;
+}
+
 #pragma mark - main interface
 
 //上传入口
 - (void)uploadWithFilePath:(NSString *)filePath {
+    [self uploadWithFilePath:filePath start:nil progress:nil success:nil failure:nil cancel:nil];
+}
+
+- (void)uploadWithFilePath:(NSString *)filePath start:(WGLUploadProviderStartBlock)start progress:(WGLUploadProviderProgressBlock)progress success:(WGLUploadProviderSuccessBlock)success failure:(WGLUploadProviderFailBlock)failure cancel:(WGLUploadProviderCancelBlock)cancel {
+    
+    //已在任务队列中
+    if ([self existInTasks:filePath]) {
+        
+        WGLUploadTask *findTask = [self taskForUrl:filePath];
+        if (findTask) {
+            if (findTask.uploadStatus == WGLUploadStatusWaiting
+                && self.executeOrder == WGLUploadExeOrderLIFO) {
+                //调整上传优先级
+                
+                Lock();
+                [self.tasks removeObject:findTask];
+                [self.tasks insertObject:findTask atIndex:0];
+                Unlock();
+                
+                return;
+            }
+            else {
+                //作为新的上传任务，重新上传
+                Lock();
+                [self.tasks removeObject:findTask];
+                Unlock();
+            }
+        }
+    }
+    
+    //限制任务数
+    [self limitTasksSize];
+    
+    //添加到任务队列
+    WGLUploadTask *task = [[WGLUploadTask alloc] init];
+    task.filePath = filePath;
+    task.uploadStatus = WGLUploadStatusWaiting;
+    [self addTask:task];
+    
+    //触发下载
+    [self startUpload];
     
 }
 
 //添加任务
-- (void)addTasks:(WGLUploadTask *)task {
+- (void)addTask:(WGLUploadTask *)task {
     if (!task) {
         return;
     }
@@ -84,6 +134,65 @@
         [self.tasks addObject:task];
     }
     Unlock();
+}
+
+//开始上传
+- (void)startUpload {
+    dispatch_async([WGLUploadProvider uploadQueue], ^{
+        for (WGLUploader *uploader in self.uploaders) {
+            //正在上传中
+            if (uploader.fileOperation.uploadStatus == WGLUploadStatusUploading) {
+                continue;
+            }
+            
+            //获取等待上传的任务
+            WGLUploadTask *task = [self preferredWaittingTask];
+            if (task == nil) {
+                //没有等待上传的任务
+                break;
+            }
+            
+            WGLFileStreamOperation *fileOperation = [[WGLFileStreamOperation alloc] init];
+            fileOperation.uploadStatus = WGLUploadStatusUploading;
+            fileOperation.filePath = task.filePath;
+            uploader.fileOperation = fileOperation;
+            
+            [uploader startUpload];
+        }
+    });
+}
+
+//取消所有的上传
+- (void)cancelAllUploads {
+    dispatch_async([WGLUploadProvider uploadQueue], ^{
+        [self.uploaders enumerateObjectsUsingBlock:^(WGLUploader * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [obj cancelUpload];
+            
+            //TODO:
+            WGLUploadTask *task = [self taskForUrl:obj.fileOperation.filePath];
+            task.uploadStatus = WGLUploadStatusPaused;
+        }];
+    });
+}
+
+//取消指定上传
+- (void)cancelUploadURL:(NSString *)filePath {
+    if (!filePath
+        || filePath.length == 0) {
+        return;
+    }
+    dispatch_async([WGLUploadProvider uploadQueue], ^{
+        [self.uploaders enumerateObjectsUsingBlock:^(WGLUploader * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj.fileOperation.filePath isEqualToString:filePath]) {
+                [obj cancelUpload];
+                
+                //TODO:
+                WGLUploadTask *task = [self taskForUrl:obj.fileOperation.filePath];
+                task.uploadStatus = WGLUploadStatusPaused;
+                *stop = YES;
+            }
+        }];
+    });
 }
 
 #pragma mark - WGLUploaderDelegate
@@ -113,6 +222,13 @@
     return uploadParams;
 }
 
+//上传开始
+- (void)uploaderDidStart:(WGLUploader *)uploader fileInfo:(WGLUploadFileInfo *)fileInfo {
+    if ([self.delegate respondsToSelector:@selector(uploadProviderDidStart:fileInfo:)]) {
+        [self.delegate uploadProviderDidStart:self fileInfo:fileInfo];
+    }
+}
+
 //上传中
 - (void)uploaderUploading:(WGLUploader *)uploader fileInfo:(WGLUploadFileInfo *)fileInfo {
     if ([self.delegate respondsToSelector:@selector(uploadProviderUploading:fileInfo:)]) {
@@ -139,6 +255,65 @@
     if ([self.delegate respondsToSelector:@selector(uploadProviderDidCancel:fileInfo:)]) {
         [self.delegate uploadProviderDidCancel:self fileInfo:fileInfo];
     }
+}
+
+#pragma mark - private
+
+//已在任务队列
+- (BOOL)existInTasks:(NSString *)filePath {
+    __block BOOL exist = NO;
+    Lock();
+    [self.tasks enumerateObjectsUsingBlock:^(WGLUploadTask * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.filePath isEqualToString:filePath]) {
+            exist = YES;
+            *stop = YES;
+        }
+    }];
+    Unlock();
+    return exist;
+}
+
+//获取filePath对应的任务
+- (WGLUploadTask *)taskForUrl:(NSString *)filePath {
+    __block WGLUploadTask *task = nil;
+    Lock();
+    [self.tasks enumerateObjectsUsingBlock:^(WGLUploadTask * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.filePath isEqualToString:filePath]) {
+            task = obj;
+            *stop = YES;
+        }
+    }];
+    Unlock();
+    return task;
+}
+
+//限制任务数
+- (void)limitTasksSize {
+    if (self.maxUploadCount == -1) {
+        //不受限制
+        return;
+    }
+    if (self.tasks.count <= self.maxUploadCount) {
+        return;
+    }
+    Lock();
+    while (self.tasks.count > self.maxUploadCount) {
+        [self.tasks removeLastObject];
+    }
+    Unlock();
+}
+
+//获取等待上传的任务
+- (WGLUploadTask *)preferredWaittingTask {
+    WGLUploadTask *findTask = nil;
+    Lock();
+    for (WGLUploadTask *task in self.tasks) {
+        if (task.uploadStatus == WGLUploadStatusWaiting) {
+            findTask = task;
+        }
+    }
+    Unlock();
+    return findTask;
 }
 
 

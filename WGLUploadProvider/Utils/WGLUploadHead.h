@@ -9,6 +9,7 @@
 #ifndef WGLUploadHead_h
 #define WGLUploadHead_h
 @class WGLUploadProvider;
+@class WGLUploadFileInfo;
 
 typedef NS_ENUM(NSInteger, WGLUploadExeOrder) {
     // 以队列的方式，按照先进先出的顺序上传。这是默认的上传顺序
@@ -26,16 +27,19 @@ typedef NS_ENUM(NSInteger, WGLUploadStatus) {
     WGLUploadStatusFailed       //上传失败
 };
 
+//下载开始回调
+typedef void(^WGLUploadProviderStartBlock)(WGLUploadProvider *ulProvider, WGLUploadFileInfo *fileInfo);
+
 //下载中回调
-typedef void(^WGLUploadProviderProgressBlock)(WGLUploadProvider *ulProvider, NSString *_urlString, uint64_t receiveLength, uint64_t totalLength);
+typedef void(^WGLUploadProviderProgressBlock)(WGLUploadProvider *ulProvider, WGLUploadFileInfo *fileInfo);
 
 //下载成功回调
-typedef void(^WGLUploadProviderSuccessBlock)(WGLUploadProvider *ulProvider, NSString *_urlString, NSString *filePath);
+typedef void(^WGLUploadProviderSuccessBlock)(WGLUploadProvider *ulProvider, WGLUploadFileInfo *fileInfo);
 
 //下载失败回调
-typedef void(^WGLUploadProviderFailBlock)(WGLUploadProvider *ulProvider, NSString *_urlString);
+typedef void(^WGLUploadProviderFailBlock)(WGLUploadProvider *ulProvider, WGLUploadFileInfo *fileInfo, NSError *error);
 
-//下载开始回调
-typedef void(^WGLUploadProviderStartBlock)(WGLUploadProvider *ulProvider, NSString *_urlString);
+//下载取消回调
+typedef void(^WGLUploadProviderCancelBlock)(WGLUploadProvider *ulProvider, WGLUploadFileInfo *fileInfo);
 
 #endif /* WGLUploadHead_h */

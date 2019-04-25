@@ -10,6 +10,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "WGLUploadHead.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger fragmentCount; //文件分片数
 @property (nonatomic, assign) double uploadProgress;  //上传进度
 @property (nonatomic, assign) NSInteger uploadedSize; //已上传文件大小
+@property (nonatomic, assign) WGLUploadStatus uploadStatus;//文件上传状态
 
 @end
 
