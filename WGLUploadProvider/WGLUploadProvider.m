@@ -9,6 +9,7 @@
 #import "WGLUploadProvider.h"
 #import "WGLUploadTask.h"
 #import "WGLUploader.h"
+#import "WGLUploadUtils.h"
 
 #define Lock() dispatch_semaphore_wait(self->_lock, DISPATCH_TIME_FOREVER)
 #define Unlock() dispatch_semaphore_signal(self->_lock)
@@ -151,10 +152,14 @@
                 //没有等待上传的任务
                 break;
             }
+            task.uploadStatus = WGLUploadStatusUploading;
             
-            WGLFileStreamOperation *fileOperation = [[WGLFileStreamOperation alloc] init];
+            //归档：文件的上传信息
+            [self recordUploadInfoIfNeed:task.filePath];
+            
+            //开始上传
+            WGLFileStreamOperation *fileOperation = [[WGLFileStreamOperation alloc] initWithFilePath:task.filePath isReadOperation:YES];
             fileOperation.uploadStatus = WGLUploadStatusUploading;
-            fileOperation.filePath = task.filePath;
             uploader.fileOperation = fileOperation;
             
             [uploader startUpload];
@@ -193,6 +198,33 @@
             }
         }];
     });
+}
+
+#pragma mark - 信息归档
+
+/**
+ 如果上传信息没有归档，则归档。
+ 防止上传被中止，下次启动app，可以从上一个已上传分片开始，断点续传，避免重复上传
+ */
+- (void)recordUploadInfoIfNeed:(NSString *)filePath {
+    BOOL isRecord = [self isRecordUploadInfoForPath:filePath];
+    if (NO == isRecord) {
+        //尚未归档，则归档
+        WGLFileStreamOperation *fileStream = [[WGLFileStreamOperation alloc] initWithFilePath:filePath isReadOperation:YES];
+        BOOL success = [WGLUploadUtils archivedDataByAddFileStream:fileStream];
+        if (NO == success) {
+            NSLog(@"归档失败");
+        }
+    }
+}
+
+//判断当前文件的上传信息是否已归档
+- (BOOL)isRecordUploadInfoForPath:(NSString *)filePath {
+    WGLFileStreamOperation *fileStream = [WGLUploadUtils unArchivedFileStreamForFileName:filePath.lastPathComponent];
+    if (fileStream) {
+        return YES;
+    }
+    return NO;
 }
 
 #pragma mark - WGLUploaderDelegate
@@ -238,6 +270,9 @@
 
 //上传成功
 - (void)uploaderDidFinish:(WGLUploader *)uploader fileInfo:(WGLUploadFileInfo *)fileInfo {
+    WGLUploadTask *task = [self taskForUrl:uploader.fileOperation.filePath];
+    task.uploadStatus = WGLUploadStatusFinished;
+    
     if ([self.delegate respondsToSelector:@selector(uploadProviderDidFinish:fileInfo:)]) {
         [self.delegate uploadProviderDidFinish:self fileInfo:fileInfo];
     }
@@ -245,6 +280,9 @@
 
 //上传失败
 - (void)uploaderDidFailure:(WGLUploader *)uploader fileInfo:(WGLUploadFileInfo *)fileInfo error:(NSError *)error {
+    WGLUploadTask *task = [self taskForUrl:uploader.fileOperation.filePath];
+    task.uploadStatus = WGLUploadStatusFailed;
+    
     if ([self.delegate respondsToSelector:@selector(uploadProviderDidFailure:fileInfo:error:)]) {
         [self.delegate uploadProviderDidFailure:self fileInfo:fileInfo error:error];
     }
@@ -252,6 +290,9 @@
 
 //上传取消
 - (void)uploaderDidCancel:(WGLUploader *)uploader fileInfo:(WGLUploadFileInfo *)fileInfo {
+    WGLUploadTask *task = [self taskForUrl:uploader.fileOperation.filePath];
+    task.uploadStatus = WGLUploadStatusPaused;
+    
     if ([self.delegate respondsToSelector:@selector(uploadProviderDidCancel:fileInfo:)]) {
         [self.delegate uploadProviderDidCancel:self fileInfo:fileInfo];
     }

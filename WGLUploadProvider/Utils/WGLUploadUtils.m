@@ -97,4 +97,89 @@ done:
     return result;
 }
 
+#pragma mark - 缓存
+
+//归档“添加”
++ (BOOL)archivedDataByAddFileStream:(WGLFileStreamOperation *)fileStream {
+    NSMutableDictionary *fileStreamDic = [WGLUploadUtils fileStreamDic];
+    [fileStreamDic setObject:fileStream forKey:fileStream.fileName];
+    
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:fileStreamDic];
+    
+    [WGLUploadUtils createFilePlistPathIfNeed];
+    BOOL finish = [data writeToFile:WGLUploadPlistPath atomically:YES];
+    return finish;
+}
+
+//归档“移除”
++ (BOOL)archivedDataByRemoveFileStream:(WGLFileStreamOperation *)fileStream {
+    NSMutableDictionary *fileStreamDic = [WGLUploadUtils fileStreamDic];
+    if (nil == fileStreamDic[fileStream.fileName]) {
+        return NO;
+    }
+    [fileStreamDic removeObjectForKey:fileStream.fileName];
+    
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:fileStreamDic];
+    
+    [WGLUploadUtils createFilePlistPathIfNeed];
+    BOOL finish = [data writeToFile:WGLUploadPlistPath atomically:YES];
+    return finish;
+}
+
+//解档
++ (NSMutableDictionary <NSString *, WGLFileStreamOperation *>*)unArchivedFilePlist {
+    [WGLUploadUtils createFilePlistPathIfNeed];
+    NSMutableDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithFile:WGLUploadPlistPath];
+    return dic;
+}
+
+//解档
++ (WGLFileStreamOperation *)unArchivedFileStreamForFileName:(NSString *)fileName {
+    NSMutableDictionary *fileStreamDic = [WGLUploadUtils fileStreamDic];
+    WGLFileStreamOperation *fileStream = [fileStreamDic objectForKey:fileName];
+    return fileStream;
+}
+
+//缓存列表
++ (NSMutableDictionary *)fileStreamDic {
+    static NSMutableDictionary *fileStreamDic = nil;
+    fileStreamDic = [WGLUploadUtils unArchivedFilePlist];
+    if (!fileStreamDic) {
+        fileStreamDic = [[NSMutableDictionary alloc] init];
+    }
+    return fileStreamDic;
+}
+
++ (void)createFilePlistPathIfNeed {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (NO == [fileManager fileExistsAtPath:WGLUploadPlistPath]) {
+        [WGLUploadUtils createFileAtPath:WGLUploadPlistPath];
+    }
+}
+
++ (NSString *)cachesDir {
+    return [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
+}
+
++ (BOOL)createFileAtPath:(NSString *)path {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    // 如果文件夹路径不存在，那么先创建文件夹
+    NSString *directoryPath = [path stringByDeletingLastPathComponent];
+    if (NO == [fileManager fileExistsAtPath:directoryPath]) {
+        // 创建文件夹
+        BOOL isSuccess = [fileManager createDirectoryAtPath:directoryPath withIntermediateDirectories:YES attributes:nil error:nil];
+        if (NO == isSuccess) {
+            return NO;
+        }
+    }
+    // 如果文件存在，并不想覆盖，那么直接返回YES。
+    if (YES == [fileManager fileExistsAtPath:path]) {
+        return YES;
+    }
+    // 创建文件
+    BOOL isSuccess = [[NSFileManager defaultManager] createFileAtPath:path contents:nil attributes:nil];
+    return isSuccess;
+}
+
 @end

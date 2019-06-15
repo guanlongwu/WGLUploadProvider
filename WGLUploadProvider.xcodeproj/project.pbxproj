@@ -14,6 +14,7 @@
 		091396102270166200F52D06 /* WGLStreamFragment.m in Sources */ = {isa = PBXBuildFile; fileRef = 0913960F2270166200F52D06 /* WGLStreamFragment.m */; };
 		0913961A22706BDB00F52D06 /* WGLUploadUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0913961822706BDB00F52D06 /* WGLUploadUtils.m */; };
 		0913961E22706EEA00F52D06 /* WGLUploadTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 0913961D22706EEA00F52D06 /* WGLUploadTask.m */; };
+		091658CB22B527AF002D70B1 /* WGLUploadFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 091658CA22B527AF002D70B1 /* WGLUploadFileInfo.m */; };
 		355F3673B41782482B113236 /* libPods-WGLUploadProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2AE0922889E6658141DB9F /* libPods-WGLUploadProvider.a */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,8 @@
 		0913961922706BDB00F52D06 /* WGLUploadHead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGLUploadHead.h; sourceTree = "<group>"; };
 		0913961C22706EEA00F52D06 /* WGLUploadTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WGLUploadTask.h; sourceTree = "<group>"; };
 		0913961D22706EEA00F52D06 /* WGLUploadTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WGLUploadTask.m; sourceTree = "<group>"; };
+		091658C922B527AF002D70B1 /* WGLUploadFileInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGLUploadFileInfo.h; sourceTree = "<group>"; };
+		091658CA22B527AF002D70B1 /* WGLUploadFileInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGLUploadFileInfo.m; sourceTree = "<group>"; };
 		1FD71F99D1F20066B1E60F8F /* Pods-WGLUploadProvider.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WGLUploadProvider.debug.xcconfig"; path = "Target Support Files/Pods-WGLUploadProvider/Pods-WGLUploadProvider.debug.xcconfig"; sourceTree = "<group>"; };
 		2C2AE0922889E6658141DB9F /* libPods-WGLUploadProvider.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WGLUploadProvider.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8908F34051A321712F09F07B /* Pods-WGLUploadProvider.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WGLUploadProvider.release.xcconfig"; path = "Target Support Files/Pods-WGLUploadProvider/Pods-WGLUploadProvider.release.xcconfig"; sourceTree = "<group>"; };
@@ -85,6 +88,7 @@
 			children = (
 				091395FC226F3ECE00F52D06 /* WGLUploadProvider.h */,
 				091395FD226F3ECE00F52D06 /* WGLUploadProvider.m */,
+				091658C822B527AF002D70B1 /* Entity */,
 				0913961B22706ED800F52D06 /* Task */,
 				0913960A227015F600F52D06 /* FileStreamOperation */,
 				09139606227013C900F52D06 /* Uploader */,
@@ -130,6 +134,15 @@
 				0913961D22706EEA00F52D06 /* WGLUploadTask.m */,
 			);
 			path = Task;
+			sourceTree = "<group>";
+		};
+		091658C822B527AF002D70B1 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				091658C922B527AF002D70B1 /* WGLUploadFileInfo.h */,
+				091658CA22B527AF002D70B1 /* WGLUploadFileInfo.m */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		80C7779EE5D6017D11205E3E /* Frameworks */ = {
@@ -233,6 +246,7 @@
 			files = (
 				0913961A22706BDB00F52D06 /* WGLUploadUtils.m in Sources */,
 				091396102270166200F52D06 /* WGLStreamFragment.m in Sources */,
+				091658CB22B527AF002D70B1 /* WGLUploadFileInfo.m in Sources */,
 				091396092270140900F52D06 /* WGLUploader.m in Sources */,
 				091395FE226F3ECE00F52D06 /* WGLUploadProvider.m in Sources */,
 				0913961E22706EEA00F52D06 /* WGLUploadTask.m in Sources */,

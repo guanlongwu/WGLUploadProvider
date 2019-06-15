@@ -32,6 +32,8 @@
 - (instancetype)initWithFilePath:(NSString *)path isReadOperation:(BOOL)isReadOperation {
     if (self = [super init]) {
         _isReadOperation = isReadOperation;
+        _filePath = path;
+        
         if (_isReadOperation) {
             //读操作：打开一个已存在的文件
             
@@ -73,7 +75,7 @@
     self.fileName = [path lastPathComponent];
     self.uploadStatus = WGLUploadStatusWaiting;
     
-    NSDictionary *attr =[[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil];
+    NSDictionary *attr = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil];
     self.fileSize = attr.fileSize;
     
     self.uploadedSize = 0;

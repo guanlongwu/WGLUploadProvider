@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) NSInteger uploadedSize; //已上传文件大小
 @property (nonatomic, strong, readonly) NSArray <WGLStreamFragment *> *streamFragments; //文件分片数组
 
+- (instancetype)init NS_UNAVAILABLE;
+
 //初始化
 - (instancetype)initWithFilePath:(NSString *)path isReadOperation:(BOOL)isReadOperation;
 

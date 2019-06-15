@@ -7,6 +7,7 @@
 //
 
 #import "WGLUploader.h"
+#import "WGLUploadUtils.h"
 
 //分隔符
 #define Boundary @"1a2b3c"
@@ -46,11 +47,6 @@
     _uploadRepeatNum = 0;
 }
 
-- (void)setFileOperation:(WGLFileStreamOperation *)fileOperation {
-    _fileOperation = fileOperation;
-    _fileOperation.uploadStatus = WGLUploadStatusWaiting;
-}
-
 #pragma mark - 上传
 
 //开始上传文件
@@ -58,7 +54,7 @@
     self.isUserSuspended = NO;
     
     if (self.fileUploadParams) {
-        //开始上传
+        //已经获取上传参数，则开始上传
         
         //回调：上传开始
         WGLUploadFileInfo *fileInfo = [self getUploadFileInfo:self.fileOperation];
@@ -97,7 +93,7 @@
     if (index >= streamFragments.count) {
         
         self.fileOperation.uploadStatus = WGLUploadStatusFinished;
-        [self archerFileUploadInfo];
+        [self updateFileUploadInfoIfSuccess];
         
         //回调：上传完成
         WGLUploadFileInfo *fileInfo = [self getUploadFileInfo:self.fileOperation];
@@ -136,7 +132,7 @@
                 strongSelf.uploadRepeatNum = 0;
                 streamFragment.isUploadSuccess = YES;
                 strongSelf.fileOperation.uploadStatus = WGLUploadStatusUploading;
-                [strongSelf archerFileUploadInfo];
+                [strongSelf updateFileUploadInfoIfSuccess];
                 
                 //回调：上传中
                 WGLUploadFileInfo *fileInfo = [self getUploadFileInfo:self.fileOperation];
@@ -179,6 +175,11 @@
 -(void)uploadTaskWithParams:(NSDictionary *)params uploadData:(NSData *)data completionHandler:(void (^)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {
     if (self.isUserSuspended){
         [self cancelUpload];
+        
+        if (completionHandler) {
+            NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorCancelled userInfo:nil];
+            completionHandler(nil, nil, error);
+        }
         return;
     }
     NSURLRequest *req = [self getUploadRequest];
@@ -196,7 +197,7 @@
     self.fileOperation.uploadStatus = WGLUploadStatusPaused;
     
     //归档当前文件的上传状态：下次启动app可重新上传
-    [self archerFileUploadInfo];
+    [self updateFileUploadPlistIfCancel];
     
     //回调：取消上传
     WGLUploadFileInfo *fileInfo = [self getUploadFileInfo:self.fileOperation];
@@ -221,8 +222,18 @@
 
 #pragma mark - 信息归档
 
-- (void)archerFileUploadInfo {
-    
+- (void)updateFileUploadInfoIfSuccess {
+    BOOL result = [WGLUploadUtils archivedDataByAddFileStream:self.fileOperation];
+    if (NO == result) {
+        NSLog(@"归档失败");
+    }
+}
+
+- (void)updateFileUploadPlistIfCancel {
+    BOOL result = [WGLUploadUtils archivedDataByRemoveFileStream:self.fileOperation];
+    if (NO == result) {
+        NSLog(@"归档失败");
+    }
 }
 
 #pragma mark - private
@@ -242,7 +253,10 @@
     if ([self.dataSource respondsToSelector:@selector(uploaderGetChunkUploadParams:params:chunkIndex:)]) {
         tmps = [self.dataSource uploaderGetChunkUploadParams:self params:self.fileUploadParams chunkIndex:index];
     }
-    NSDictionary *uploadParams = tmps ?: self.fileUploadParams;
+    NSDictionary *uploadParams = tmps;
+    if (!uploadParams || uploadParams.allKeys.count == 0) {
+        uploadParams = self.fileUploadParams;
+    }
     return uploadParams;
 }
 
