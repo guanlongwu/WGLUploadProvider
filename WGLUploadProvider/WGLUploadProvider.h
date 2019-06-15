@@ -55,7 +55,7 @@ typedef void(^WGLGetFileParamsBeforeUploadCompletion)(WGLUploadProvider *ulProvi
 - (void)cancelAllUploads;
 
 //取消指定上传
-- (void)cancelUploadURL:(NSString *)filePath;
+- (void)cancelUploadFilePath:(NSString *)filePath;
 
 @end
 

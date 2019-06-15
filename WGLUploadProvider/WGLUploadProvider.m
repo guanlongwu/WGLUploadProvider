@@ -181,7 +181,7 @@
 }
 
 //取消指定上传
-- (void)cancelUploadURL:(NSString *)filePath {
+- (void)cancelUploadFilePath:(NSString *)filePath {
     if (!filePath
         || filePath.length == 0) {
         return;
