@@ -67,11 +67,13 @@
     else {
         //上传之前先获取参数
         
-        WGLUploaderGetFileParamsBeforeUploadCompletion completion = ^(WGLUploader *uploader, NSDictionary *params) {
+        __weak typeof(self) weakSelf = self;
+        WGLUploaderGetFileParamsBeforeUploadCompletion completion = ^(NSDictionary *params) {
+            __strong typeof(weakSelf) strongSelf = weakSelf;
             //获取到参数
-            uploader.fileUploadParams = [NSMutableDictionary dictionaryWithDictionary:params];
+            strongSelf.fileUploadParams = [NSMutableDictionary dictionaryWithDictionary:params];
             //执行上传
-            [uploader startUpload];
+            [strongSelf startUpload];
         };
         
         //获取参数的操作由代理实现

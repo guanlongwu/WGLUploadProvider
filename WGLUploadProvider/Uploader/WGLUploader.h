@@ -16,7 +16,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 //获取上传文件的参数Block
-typedef void(^WGLUploaderGetFileParamsBeforeUploadCompletion)(WGLUploader *uploader, NSDictionary *params);
+typedef void(^WGLUploaderGetFileParamsBeforeUploadCompletion)(NSDictionary *params);
 
 @interface WGLUploader : NSObject
 @property (nonatomic, weak) id <WGLUploaderDataSource> dataSource;
