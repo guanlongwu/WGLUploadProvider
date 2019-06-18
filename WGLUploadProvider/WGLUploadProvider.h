@@ -15,9 +15,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-//获取上传文件的参数Block
-typedef void(^WGLGetFileParamsBeforeUploadCompletion)(NSDictionary *params);
-
 @interface WGLUploadProvider : NSObject
 @property (nonatomic, weak) id <WGLUploadProviderDataSource> dataSource;
 @property (nonatomic, weak) id <WGLUploadProviderDelegate> delegate;
@@ -63,21 +60,29 @@ typedef void(^WGLGetFileParamsBeforeUploadCompletion)(NSDictionary *params);
 @protocol WGLUploadProviderDataSource <NSObject>
 
 /**
- 获取文件上传的NSURLRequest对象
+ 获取文件上传的NSMutableURLRequest对象
  
  @param ulProvider WGLUploadProvider
- @return 上传的NSURLRequest对象
+ @return 上传的NSMutableURLRequest对象
  */
-- (NSURLRequest *)uploadProviderGetUploadURLRequest:(WGLUploadProvider *)ulProvider;
+- (NSMutableURLRequest *)uploadProviderGetUploadURLRequest:(WGLUploadProvider *)ulProvider;
+
+/**
+ 获取请求body的part参数：name、fileName、mimeType
+ 
+ @param ulProvider WGLUploadProvider
+ @param handler 回调
+ */
+- (void)uploadProviderGetParamsForAppendPartData:(WGLUploadProvider *)ulProvider handler:(WGLGetParamsForAppendPartDataHandler)handler;
 
 /**
  异步获取上传文件所需的参数（note：这是文件上传之前的操作）
  
  @param ulProvider WGLUploadProvider
  @param fileInfo 待上传文件的信息
- @param completion 回调
+ @param handler 回调
  */
-- (void)uploadProviderGetParamsBeforeUpload:(WGLUploadProvider *)ulProvider fileInfo:(WGLUploadFileInfo *)fileInfo completion:(WGLGetFileParamsBeforeUploadCompletion)completion;
+- (void)uploadProviderGetParamsBeforeUpload:(WGLUploadProvider *)ulProvider fileInfo:(WGLUploadFileInfo *)fileInfo handler:(WGLGetFileParamsBeforeUploadHandler)handler;
 
 /**
  获取上传每个分片文件所需的参数（note：这是分片文件上传时的操作）

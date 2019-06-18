@@ -68,7 +68,7 @@
         //上传之前先获取参数
         
         __weak typeof(self) weakSelf = self;
-        WGLUploaderGetFileParamsBeforeUploadCompletion completion = ^(NSDictionary *params) {
+        WGLGetFileParamsBeforeUploadHandler handler = ^(NSDictionary *params) {
             __strong typeof(weakSelf) strongSelf = weakSelf;
             //获取到参数
             strongSelf.fileUploadParams = [NSMutableDictionary dictionaryWithDictionary:params];
@@ -78,8 +78,8 @@
         
         //获取参数的操作由代理实现
         WGLUploadFileInfo *fileInfo = [self getUploadFileInfo:self.fileOperation];
-        if ([self.dataSource respondsToSelector:@selector(uploaderGetParamsBeforeUpload:fileInfo:completion:)]) {
-            [self.dataSource uploaderGetParamsBeforeUpload:self fileInfo:fileInfo completion:completion];
+        if ([self.dataSource respondsToSelector:@selector(uploaderGetParamsBeforeUpload:fileInfo:handler:)]) {
+            [self.dataSource uploaderGetParamsBeforeUpload:self fileInfo:fileInfo handler:handler];
         }
         else {
             NSLog(@"尚未获取上传参数，不能执行文件的上传！");
@@ -184,7 +184,7 @@
         }
         return;
     }
-    NSURLRequest *req = [self getUploadRequest];
+    NSMutableURLRequest *req = [self getUploadRequest];
     NSData *formData = [self getHTTPBodyDataWithParams:params uploadData:data];
     self.currentUploadTask = [[NSURLSession sharedSession] uploadTaskWithRequest:req fromData:formData completionHandler:completionHandler];
     [self.currentUploadTask resume];
@@ -241,10 +241,13 @@
 #pragma mark - private
 
 //获取上传request
-- (NSURLRequest *)getUploadRequest {
-    NSURLRequest *req = nil;
+- (NSMutableURLRequest *)getUploadRequest {
+    NSMutableURLRequest *req = nil;
     if ([self.dataSource respondsToSelector:@selector(uploaderGetUploadURLRequest:)]) {
         req = [self.dataSource uploaderGetUploadURLRequest:self];
+    }
+    if (![req valueForHTTPHeaderField:@"Content-Type"]) {
+        [req setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     }
     return req;
 }
@@ -276,7 +279,12 @@
         [totlData appendData:[disposition dataUsingEncoding:NSUTF8StringEncoding]];
     }
     
-    NSString *body = [NSString stringWithFormat:@"%@Content-Disposition: form-data; name=\"picture\"; filename=\"%@\";Content-Type:video/mpeg4%@", StartBoundary, @"file", Wrap2];
+    NSString *name = kDefaultAppendDataName;
+    NSString *fileName = kDefaultAppendDataFileName;
+    NSString *mimeType = kDefaultAppendDataMimeType;
+    [self getAppendDataPartParamsForName:&name fileName:&fileName mimeType:&mimeType];
+    
+    NSString *body = [NSString stringWithFormat:@"%@Content-Disposition: form-data; name=\"%@\"; filename=\"%@\";Content-Type:%@%@", StartBoundary, name, fileName, mimeType, Wrap2];
     [totlData appendData:[body dataUsingEncoding:NSUTF8StringEncoding]];
     [totlData appendData:uploadData];
     [totlData appendData:[Wrap1 dataUsingEncoding:NSUTF8StringEncoding]];
@@ -300,6 +308,26 @@
         info.uploadStatus = fileOperation.uploadStatus;
     }
     return info;
+}
+
+//获取请求body的part参数：name、fileName、mimeType
+- (void)getAppendDataPartParamsForName:(NSString **)name fileName:(NSString **)fileName mimeType:(NSString **)mimeType {
+    __block NSString *_name = nil;
+    __block NSString *_fileName = nil;
+    __block NSString *_mimeType = nil;
+    
+    if ([self.dataSource respondsToSelector:@selector(uploaderGetParamsForAppendPartData:handler:)]) {
+        [self.dataSource uploaderGetParamsForAppendPartData:self handler:^(NSString * _Nullable name, NSString * _Nullable fileName, NSString * _Nullable mimeType) {
+            _name = name;
+            _fileName = fileName;
+            _mimeType = mimeType;
+        }];
+    }
+    
+    *name = _name.length > 0 ? _name : kDefaultAppendDataName;
+    *fileName = _fileName.length > 0 ? _fileName : kDefaultAppendDataFileName;
+    *mimeType = _mimeType.length > 0 ? _mimeType : kDefaultAppendDataMimeType;
+    
 }
 
 @end

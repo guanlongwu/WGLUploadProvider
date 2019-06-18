@@ -230,18 +230,25 @@
 #pragma mark - WGLUploaderDelegate
 
 //获取上传URLRequest
-- (NSURLRequest *)uploaderGetUploadURLRequest:(WGLUploader *)uploader {
-    NSURLRequest *req = nil;
+- (NSMutableURLRequest *)uploaderGetUploadURLRequest:(WGLUploader *)uploader {
+    NSMutableURLRequest *req = nil;
     if ([self.dataSource respondsToSelector:@selector(uploadProviderGetUploadURLRequest:)]) {
         req = [self.dataSource uploadProviderGetUploadURLRequest:self];
     }
     return req;
 }
 
+//获取请求body的part参数：name、fileName、mimeType
+- (void)uploaderGetParamsForAppendPartData:(WGLUploader *)uploader handler:(WGLGetParamsForAppendPartDataHandler)handler {
+    if ([self.dataSource respondsToSelector:@selector(uploadProviderGetParamsForAppendPartData:handler:)]) {
+        [self.dataSource uploadProviderGetParamsForAppendPartData:self handler:handler];
+    }
+}
+
 //获取文件上传之前的参数
-- (void)uploaderGetParamsBeforeUpload:(WGLUploader *)uploader fileInfo:(WGLUploadFileInfo *)fileInfo completion:(WGLGetFileParamsBeforeUploadCompletion)completion {
-    if ([self.dataSource respondsToSelector:@selector(uploadProviderGetParamsBeforeUpload:fileInfo:completion:)]) {
-        [self.dataSource uploadProviderGetParamsBeforeUpload:self fileInfo:fileInfo completion:completion];
+- (void)uploaderGetParamsBeforeUpload:(WGLUploader *)uploader fileInfo:(WGLUploadFileInfo *)fileInfo handler:(WGLGetFileParamsBeforeUploadHandler)handler {
+    if ([self.dataSource respondsToSelector:@selector(uploadProviderGetParamsBeforeUpload:fileInfo:handler:)]) {
+        [self.dataSource uploadProviderGetParamsBeforeUpload:self fileInfo:fileInfo handler:handler];
     }
 }
 

@@ -42,4 +42,15 @@ typedef void(^WGLUploadProviderFailBlock)(WGLUploadProvider *ulProvider, WGLUplo
 //下载取消回调
 typedef void(^WGLUploadProviderCancelBlock)(WGLUploadProvider *ulProvider, WGLUploadFileInfo *fileInfo);
 
+#define kDefaultAppendDataName          @"picture"
+#define kDefaultAppendDataFileName      @"file"
+#define kDefaultAppendDataMimeType      @"application/octet-stream"
+
+//获取上传文件的参数Block
+typedef void(^WGLGetFileParamsBeforeUploadHandler)(NSDictionary *params);
+
+//获取请求body的part参数：name、fileName、mimeType
+typedef void(^WGLGetParamsForAppendPartDataHandler)(NSString *_Nullable name, NSString *_Nullable fileName, NSString *_Nullable mimeType);
+
+
 #endif /* WGLUploadHead_h */
