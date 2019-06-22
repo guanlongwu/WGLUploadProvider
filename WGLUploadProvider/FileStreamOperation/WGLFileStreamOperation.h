@@ -36,6 +36,9 @@ NS_ASSUME_NONNULL_BEGIN
 //读取对应分片data
 - (NSData *)readDataOfFragment:(WGLStreamFragment *)fragment;
 
+//文件信息
++ (WGLFileStreamOperation *)fileInfoWithFilePath:(NSString *)filePath;
+
 @end
 
 NS_ASSUME_NONNULL_END

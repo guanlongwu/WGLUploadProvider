@@ -37,7 +37,7 @@
         if (_isReadOperation) {
             //读操作：打开一个已存在的文件
             
-            if (NO == [self setFileInfoWithPath:path]) {
+            if (NO == [self getFileInfoWithPath:path]) {
                 return nil;
             }
             self.readFileHandle = [NSFileHandle fileHandleForReadingAtPath:path];
@@ -52,7 +52,7 @@
             if (![fileMgr fileExistsAtPath:path]) {
                 [fileMgr createFileAtPath:path contents:nil attributes:nil];
             }
-            if (NO == [self setFileInfoWithPath:path]) {
+            if (NO == [self getFileInfoWithPath:path]) {
                 return nil;
             }
             self.writeFileHandle = [NSFileHandle fileHandleForWritingAtPath:path];
@@ -64,7 +64,7 @@
 #pragma mark - 获取文件信息
 
 //根据文件路径，获取文件信息
-- (BOOL)setFileInfoWithPath:(NSString *)path {
+- (BOOL)getFileInfoWithPath:(NSString *)path {
     if (NO == [[NSFileManager defaultManager] fileExistsAtPath:path]) {
         NSLog(@"文件不存在：%@", path);
         return NO;
@@ -82,6 +82,13 @@
     self.uploadProgress = 0.00;
     
     return YES;
+}
+
+//文件信息
++ (WGLFileStreamOperation *)fileInfoWithFilePath:(NSString *)filePath {
+    WGLFileStreamOperation *operation = [WGLFileStreamOperation new];
+    [operation getFileInfoWithPath:filePath];
+    return operation;
 }
 
 #pragma mark - 读操作

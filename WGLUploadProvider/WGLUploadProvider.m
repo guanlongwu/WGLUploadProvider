@@ -40,6 +40,7 @@
         _lock = dispatch_semaphore_create(1);
         _maxUploadCount = -1;
         _executeOrder = WGLUploadExeOrderFIFO;
+        _ignoreTheCache = YES;
         
         _tasks = [[NSMutableArray alloc] init];
         _uploaders = [NSMutableArray array];
@@ -154,11 +155,9 @@
             }
             task.uploadStatus = WGLUploadStatusUploading;
             
-            //归档：文件的上传信息
-            [self recordUploadInfoIfNeed:task.filePath];
-            
+            //查看上传的文件是否已归档，已归档代表之前已经有上传过
+            WGLFileStreamOperation *fileOperation = [self recordUploadInfoIfNeed:task.filePath];
             //开始上传
-            WGLFileStreamOperation *fileOperation = [[WGLFileStreamOperation alloc] initWithFilePath:task.filePath isReadOperation:YES];
             fileOperation.uploadStatus = WGLUploadStatusUploading;
             uploader.fileOperation = fileOperation;
             
@@ -206,25 +205,26 @@
  如果上传信息没有归档，则归档。
  防止上传被中止，下次启动app，可以从上一个已上传分片开始，断点续传，避免重复上传
  */
-- (void)recordUploadInfoIfNeed:(NSString *)filePath {
-    BOOL isRecord = [self isRecordUploadInfoForPath:filePath];
-    if (NO == isRecord) {
-        //尚未归档，则归档
-        WGLFileStreamOperation *fileStream = [[WGLFileStreamOperation alloc] initWithFilePath:filePath isReadOperation:YES];
+- (WGLFileStreamOperation *)recordUploadInfoIfNeed:(NSString *)filePath {
+    WGLFileStreamOperation *fileStream = [self fileUploadInfoRecordForPath:filePath];
+    if (!fileStream
+        || YES == self.ignoreTheCache) {
+        
+        //尚未归档，则归档 || 采用忽略缓存的上传策略，则每次都重新上传
+        fileStream = [[WGLFileStreamOperation alloc] initWithFilePath:filePath isReadOperation:YES];
         BOOL success = [WGLUploadUtils archivedDataByAddFileStream:fileStream];
         if (NO == success) {
             NSLog(@"归档失败");
         }
     }
+    return fileStream;
 }
 
 //判断当前文件的上传信息是否已归档
-- (BOOL)isRecordUploadInfoForPath:(NSString *)filePath {
-    WGLFileStreamOperation *fileStream = [WGLUploadUtils unArchivedFileStreamForFileName:filePath.lastPathComponent];
-    if (fileStream) {
-        return YES;
-    }
-    return NO;
+- (WGLFileStreamOperation *)fileUploadInfoRecordForPath:(NSString *)filePath {
+    NSString *fileName = [WGLFileStreamOperation fileInfoWithFilePath:filePath].fileName;
+    WGLFileStreamOperation *fileStream = [WGLUploadUtils unArchivedFileStreamForFileName:fileName];
+    return fileStream;
 }
 
 #pragma mark - WGLUploaderDelegate

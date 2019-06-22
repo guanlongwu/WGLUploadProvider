@@ -101,7 +101,10 @@ done:
 
 //归档“添加”
 + (BOOL)archivedDataByAddFileStream:(WGLFileStreamOperation *)fileStream {
-    NSMutableDictionary *fileStreamDic = [WGLUploadUtils fileStreamDic];
+    if (!fileStream) {
+        return NO;
+    }
+    NSMutableDictionary <NSString *, WGLFileStreamOperation *>*fileStreamDic = [WGLUploadUtils fileStreamDic];
     [fileStreamDic setObject:fileStream forKey:fileStream.fileName];
     
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:fileStreamDic];
@@ -113,7 +116,10 @@ done:
 
 //归档“移除”
 + (BOOL)archivedDataByRemoveFileStream:(WGLFileStreamOperation *)fileStream {
-    NSMutableDictionary *fileStreamDic = [WGLUploadUtils fileStreamDic];
+    if (!fileStream) {
+        return NO;
+    }
+    NSMutableDictionary <NSString *, WGLFileStreamOperation *>*fileStreamDic = [WGLUploadUtils fileStreamDic];
     if (nil == fileStreamDic[fileStream.fileName]) {
         return NO;
     }
@@ -135,13 +141,16 @@ done:
 
 //解档
 + (WGLFileStreamOperation *)unArchivedFileStreamForFileName:(NSString *)fileName {
+    if (fileName.length == 0) {
+        return nil;
+    }
     NSMutableDictionary *fileStreamDic = [WGLUploadUtils fileStreamDic];
     WGLFileStreamOperation *fileStream = [fileStreamDic objectForKey:fileName];
     return fileStream;
 }
 
 //缓存列表
-+ (NSMutableDictionary *)fileStreamDic {
++ (NSMutableDictionary <NSString *, WGLFileStreamOperation *>*)fileStreamDic {
     static NSMutableDictionary *fileStreamDic = nil;
     fileStreamDic = [WGLUploadUtils unArchivedFilePlist];
     if (!fileStreamDic) {

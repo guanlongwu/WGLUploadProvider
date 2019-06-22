@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (WGLFileStreamOperation *)unArchivedFileStreamForFileName:(NSString *)fileName;
 
 //缓存列表
-+ (NSMutableDictionary *)fileStreamDic;
++ (NSMutableDictionary <NSString *, WGLFileStreamOperation *>*)fileStreamDic;
 
 
 @end

@@ -40,6 +40,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) WGLUploadExeOrder executeOrder;
 
 /**
+ 上传策略
+ 默认每次都重新上传，忽略缓存
+ */
+@property (nonatomic, assign) BOOL ignoreTheCache;  //default YES
+
+/**
  开始上传
  
  @param filePath 上传文件的路径
