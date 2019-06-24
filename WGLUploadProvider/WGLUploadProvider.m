@@ -227,6 +227,16 @@
     return fileStream;
 }
 
+#pragma mark - notification
+
+- (void)registeNotification{
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+//
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(taskExeEnd:) name:CWUploadTaskExeEnd object:nil];
+//
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(taskExeError:) name:CWUploadTaskExeError object:nil];
+}
+
 #pragma mark - WGLUploaderDelegate
 
 //获取上传URLRequest
